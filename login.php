@@ -1,3 +1,49 @@
+<?php
+session_start();
+
+// Database connection
+$pdo = new PDO(
+  'mysql:host=localhost;dbname=lab07Tarea',
+  'root',
+  ''
+);
+
+// Function to validate user input
+function validateInput($data) {
+    // Remove leading and trailing whitespaces
+    $data = trim($data);
+    // Convert special characters to HTML entities to prevent XSS attacks
+    $data = htmlspecialchars($data);
+    return $data;
+}
+
+// Check if the form is submitted
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  // Validate username and password
+  $username = validateInput($_POST['username']);
+  $password = validateInput($_POST['password']);
+
+  // Query the database to fetch user data
+  $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE id_agente = ?");
+  $stmt->execute([$username]);
+  $user = $stmt->fetch();
+
+  // Verify user credentials
+  if ($user && password_verify($password, $user['contrasena'])) {
+      // Set session variables
+      $_SESSION['username'] = $username;
+      // Redirect to dashboard
+      header("Location: inicio.php");
+      exit();
+  } else {
+      // Invalid username or password
+      $error = "Usuario o contraseña invalida.";
+  }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,14 +52,16 @@
   <title>Inicio de sesión</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="Estilos/loginestilos.css">
+
 </head>
 <body>
 
 <div class="container-fluid">
   <div class="row justify-content-end align-items-center" style="height: 100vh;">
-    <div class="col-md-6">
+    <div class="col-md-6 form-container"> <!-- Agregar una clase para el contenedor del formulario -->
       <h2 class="text-center">Inicio de sesión</h2>
-      <form>
+      <?= isset($error) ? "<p class='error-message'>$error</p>" : "" ?>
+      <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
         <div class="form-group">
           <label for="username">Usuario:</label>
           <input type="text" class="form-control" id="username" name="username" required>
@@ -36,6 +84,7 @@
 
 </body>
 </html>
+
 
 
 

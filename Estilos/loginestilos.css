@@ -5,6 +5,9 @@ body {
     min-height: 100vh;
   }
   
+.form-container {
+    margin-right: 10%; /* Ajustar el margen derecho para separar el formulario */
+  }
   
 .container {
     display: flex;
@@ -20,7 +23,8 @@ body {
     background-color: #f5f5f5;
   }
   
-
-  
-  
-  
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}

@@ -70,6 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="row justify-content-center">
         <div class="col-md-6">
         <h2 class="text-center">Registro de Agente Secreto</h2>
+        <?= isset($error) ? "<p class='error-message'>$error</p>" : "" ?>
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
             <div class="form-group">
             <label for="nombre">Nombre:</label>
