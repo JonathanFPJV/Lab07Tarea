@@ -26,7 +26,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $descripcionMision = validateInput($_POST['descripcionMision']);
 
     //Chequear si el agenteid ya existe
-    
+    $stmt = $pdo->prepare("SELECT id_agente FROM usuarios WHERE id_agente = ?");
+    $stmt->execute([$agenteID]);
+    $existingUser = $stmt->fetch();
+
+    if($existingUser) {
+        $error = "El nombre de usuario ya está en uso.";
+    } else {
         // Insertar datos del usuario en la tabla usuarios
         $insertStmt = $pdo->prepare("INSERT INTO usuarios (id_agente, contrasena) VALUES (?, ?)");
         $insertStmt->execute([$agenteID, $contrasenah]);
@@ -42,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Redirigir a otra página después del registro
         header("Location: login.php");
         exit();
-    
+    }
     
 }
     
