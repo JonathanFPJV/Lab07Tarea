@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       // Set session variables
       $_SESSION['username'] = $username;
       // Redirect to dashboard
-      header("Location: inicio.php");
+      header("Location: dashboard.php");
       exit();
   } else {
       // Invalid username or password
