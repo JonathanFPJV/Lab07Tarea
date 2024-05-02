@@ -1,0 +1,26 @@
+/* Estilos generales */
+body {
+    background-image: url('https://previews.123rf.com/images/xixinxing/xixinxing1406/xixinxing140601992/35990891-silhouette-of-businessman-holding-a-briefcase-with-blurred-city-lights-behind-him.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    margin-top: 50px;
+    max-width: 600px;
+}
+
+/* Estilos del botón "Cerrar sesión" */
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
